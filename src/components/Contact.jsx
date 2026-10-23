@@ -132,7 +132,7 @@ export default function Contact() {
                     <MapPin className="w-3 h-3 text-cyan-400" />
                     <span>LOCATION</span>
                   </div>
-                  <div className="text-white font-medium">Bengaluru / Remote</div>
+                  <div className="text-white font-medium">India</div>
                 </div>
                 <div className="p-3 rounded-xl bg-white/[0.02] border border-white/5 space-y-1">
                   <div className="text-slate-400 flex items-center gap-1">
