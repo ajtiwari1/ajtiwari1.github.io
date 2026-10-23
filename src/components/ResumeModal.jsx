@@ -10,7 +10,6 @@ import {
   Award,
   GraduationCap,
   Mail,
-  Phone,
   CheckCircle2,
 } from 'lucide-react';
 
@@ -119,10 +118,6 @@ export default function ResumeModal({ isOpen, onClose }) {
                 Senior AI/ML &amp; Generative AI Engineer
               </div>
               <div className="flex flex-wrap items-center justify-center gap-4 text-xs font-mono text-slate-400 pt-1">
-                <span className="flex items-center gap-1">
-                  <Phone className="w-3 h-3 text-cyan-400" /> +91-9667281261
-                </span>
-                <span>•</span>
                 <span className="flex items-center gap-1">
                   <Mail className="w-3 h-3 text-cyan-400" /> tiwariajay12351@gmail.com
                 </span>

@@ -11,7 +11,6 @@ import {
   Sparkles,
   Terminal,
   ExternalLink,
-  Phone,
   GraduationCap,
   Award,
 } from 'lucide-react';
@@ -19,24 +18,16 @@ import { Github, Linkedin } from './Icons.jsx';
 
 export default function Contact() {
   const [copiedEmail, setCopiedEmail] = useState(false);
-  const [copiedPhone, setCopiedPhone] = useState(false);
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [isSent, setIsSent] = useState(false);
 
   const myEmail = 'tiwariajay12351@gmail.com';
-  const myPhone = '+91-9667281261';
 
   const copyEmail = () => {
     navigator.clipboard.writeText(myEmail);
     setCopiedEmail(true);
     setTimeout(() => setCopiedEmail(false), 2500);
-  };
-
-  const copyPhone = () => {
-    navigator.clipboard.writeText(myPhone);
-    setCopiedPhone(true);
-    setTimeout(() => setCopiedPhone(false), 2500);
   };
 
   const handleSubmit = (e) => {
@@ -103,24 +94,6 @@ export default function Contact() {
                   >
                     {copiedEmail ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
                     <span>{copiedEmail ? 'Copied' : 'Copy'}</span>
-                  </button>
-                </div>
-              </div>
-
-              {/* Phone Card with Copy button */}
-              <div className="p-4 rounded-xl bg-white/[0.03] border border-white/5 space-y-2">
-                <div className="text-[11px] font-mono text-slate-400">DIRECT PHONE / WHATSAPP</div>
-                <div className="flex items-center justify-between gap-2">
-                  <span className="font-mono text-xs sm:text-sm text-purple-300 font-semibold truncate flex items-center gap-1.5">
-                    <Phone className="w-3.5 h-3.5 text-purple-400" />
-                    {myPhone}
-                  </span>
-                  <button
-                    onClick={copyPhone}
-                    className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg bg-purple-500/20 hover:bg-purple-500/30 text-purple-300 border border-purple-400/30 font-mono text-xs transition-colors shrink-0"
-                  >
-                    {copiedPhone ? <Check className="w-3.5 h-3.5 text-emerald-400" /> : <Copy className="w-3.5 h-3.5" />}
-                    <span>{copiedPhone ? 'Copied' : 'Copy'}</span>
                   </button>
                 </div>
               </div>
