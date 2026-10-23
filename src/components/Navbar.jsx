@@ -104,7 +104,7 @@ export default function Navbar() {
             <Github className="w-4 h-4" />
           </a>
           <a
-            href="https://linkedin.com"
+            href="https://www.linkedin.com/in/ajay-tiwari67/"
             target="_blank"
             rel="noopener noreferrer"
             className="p-2.5 rounded-full glass-panel border border-white/10 text-slate-300 hover:text-blue-400 hover:border-blue-500/40 hover:scale-105 transition-all"
@@ -168,7 +168,7 @@ export default function Navbar() {
                   <Github className="w-4 h-4" />
                 </a>
                 <a
-                  href="https://linkedin.com"
+                  href="https://www.linkedin.com/in/ajay-tiwari67/"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="p-2 rounded-lg bg-white/5 text-slate-300 hover:text-blue-400"

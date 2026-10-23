@@ -170,7 +170,7 @@ export default function Contact() {
                     <ExternalLink className="w-3 h-3 text-slate-500" />
                   </a>
                   <a
-                    href="https://linkedin.com"
+                    href="https://www.linkedin.com/in/ajay-tiwari67/"
                     target="_blank"
                     rel="noopener noreferrer"
                     className="flex items-center gap-2 px-3.5 py-2 rounded-xl glass-panel border border-white/10 hover:border-blue-400 text-slate-300 hover:text-white font-mono text-xs transition-all"
