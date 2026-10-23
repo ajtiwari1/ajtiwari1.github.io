@@ -1,6 +1,7 @@
 #!/bin/bash
 set -e
 
+LAST_COMMIT_MSG=$(git log -1 --pretty=%B | head -n 1)
 echo "🔨 Building latest production bundle..."
 npm run build
 
@@ -17,10 +18,8 @@ cp dist/.nojekyll "$WORKTREE_DIR"/ 2>/dev/null || true
 
 cd "$WORKTREE_DIR"
 git add -A
-git -c user.name="Ajay Tiwari" -c user.email="tiwariajay12351@gmail.com" commit -m "Deploy production build for GitHub Pages" || echo "No changes to commit"
+git -c user.name="Ajay Tiwari" -c user.email="tiwariajay12351@gmail.com" commit -m "Deploy: $LAST_COMMIT_MSG (Location: India, no phone)" || echo "No changes to commit"
 cd - > /dev/null
 git worktree remove "$WORKTREE_DIR"
 
 echo "✅ 'main' branch contains build format only!"
-echo "🚀 To publish live to GitHub Pages, run:"
-echo "   git push -f origin main:gh-pages"
