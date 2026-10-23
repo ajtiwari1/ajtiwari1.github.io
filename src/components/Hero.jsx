@@ -12,6 +12,7 @@ import {
   RotateCw,
   CheckCircle2,
   Award,
+  FileText,
 } from 'lucide-react';
 
 const specialties = [
@@ -31,7 +32,7 @@ const simulatedTokens = [
   'Transmission ready. Sub-second streaming active.',
 ];
 
-export default function Hero() {
+export default function Hero({ onOpenResume }) {
   const [specialtyIndex, setSpecialtyIndex] = useState(0);
   const [inferenceRunning, setInferenceRunning] = useState(false);
   const [inferenceOutput, setInferenceOutput] = useState(simulatedTokens.slice(0, 3));
@@ -158,9 +159,17 @@ export default function Hero() {
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
 
+              <button
+                onClick={onOpenResume}
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl glass-panel border border-cyan-500/40 text-cyan-300 font-mono text-sm hover:border-cyan-400 hover:bg-cyan-500/10 hover:shadow-neon-cyan hover:scale-[1.02] transition-all"
+              >
+                <FileText className="w-4 h-4 text-cyan-400" />
+                <span>Resume / CV</span>
+              </button>
+
               <a
                 href="#projects"
-                className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl glass-panel border border-cyan-500/30 text-cyan-300 font-mono text-sm hover:border-cyan-400 hover:bg-cyan-500/10 hover:scale-[1.02] transition-all"
+                className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl glass-panel border border-white/10 text-slate-300 font-mono text-sm hover:border-cyan-400/40 hover:text-white hover:scale-[1.02] transition-all"
               >
                 <Cpu className="w-4 h-4 text-cyan-400" />
                 <span>Explore Projects</span>

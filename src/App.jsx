@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import NeuralCanvas from './components/NeuralCanvas.jsx';
 import CustomCursor from './components/CustomCursor.jsx';
 import Navbar from './components/Navbar.jsx';
@@ -9,8 +9,11 @@ import Skills from './components/Skills.jsx';
 import Experience from './components/Experience.jsx';
 import Contact from './components/Contact.jsx';
 import Footer from './components/Footer.jsx';
+import ResumeModal from './components/ResumeModal.jsx';
 
 export default function App() {
+  const [isResumeOpen, setIsResumeOpen] = useState(false);
+
   return (
     <div className="relative min-h-screen bg-[#040714] text-slate-100 cyber-grid selection:bg-cyan-500/30 selection:text-cyan-200">
       {/* Interactive Neural Synapse Canvas */}
@@ -25,10 +28,10 @@ export default function App() {
 
       {/* Main Content Layout */}
       <div className="relative z-10 flex flex-col min-h-screen">
-        <Navbar />
+        <Navbar onOpenResume={() => setIsResumeOpen(true)} />
 
         <main className="flex-grow">
-          <Hero />
+          <Hero onOpenResume={() => setIsResumeOpen(true)} />
           <Projects />
           <AILab />
           <Skills />
@@ -38,6 +41,9 @@ export default function App() {
 
         <Footer />
       </div>
+
+      {/* Interactive Resume Viewer & Downloader Modal */}
+      <ResumeModal isOpen={isResumeOpen} onClose={() => setIsResumeOpen(false)} />
     </div>
   );
 }

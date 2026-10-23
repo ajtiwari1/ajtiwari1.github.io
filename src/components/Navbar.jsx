@@ -12,7 +12,7 @@ const navItems = [
   { name: 'Contact', href: '#contact' },
 ];
 
-export default function Navbar() {
+export default function Navbar({ onOpenResume }) {
   const [scrolled, setScrolled] = useState(false);
   const [activeSection, setActiveSection] = useState('overview');
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
@@ -91,8 +91,16 @@ export default function Navbar() {
           })}
         </nav>
 
-        {/* Actions (Resume & Social) */}
+        {/* Actions (Resume, Social, Connect) */}
         <div className="hidden sm:flex items-center gap-2.5">
+          <button
+            onClick={onOpenResume}
+            className="flex items-center gap-1.5 px-3.5 py-2 rounded-full glass-panel border border-cyan-500/30 text-cyan-300 font-mono text-xs font-semibold hover:border-cyan-400 hover:bg-cyan-500/10 hover:shadow-neon-cyan hover:scale-[1.02] active:scale-[0.98] transition-all"
+            title="View &amp; Download Resume"
+          >
+            <FileText className="w-3.5 h-3.5 text-cyan-400" />
+            <span>Resume</span>
+          </button>
           <a
             href="https://github.com/ajtiwari1"
             target="_blank"
@@ -158,7 +166,17 @@ export default function Navbar() {
               ))}
             </div>
             <div className="pt-3 border-t border-white/10 flex items-center justify-between">
-              <div className="flex items-center gap-3">
+              <div className="flex items-center gap-2">
+                <button
+                  onClick={() => {
+                    setMobileMenuOpen(false);
+                    onOpenResume();
+                  }}
+                  className="flex items-center gap-1.5 px-3 py-1.5 rounded-lg glass-panel border border-cyan-500/30 text-cyan-300 font-mono text-xs"
+                >
+                  <FileText className="w-3.5 h-3.5 text-cyan-400" />
+                  <span>Resume</span>
+                </button>
                 <a
                   href="https://github.com/ajtiwari1"
                   target="_blank"
