@@ -1,245 +1,295 @@
 import React, { useState } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import { Sparkles, Filter, Code2 } from 'lucide-react';
+import { Sparkles, Code2 } from 'lucide-react';
 import ProjectCard from './ProjectCard.jsx';
 import ProjectModal from './ProjectModal.jsx';
 
 const projectsData = [
   {
-    id: 'omniagent-x',
-    category: 'LLMs & Agents',
-    title: 'OmniAgent X: Autonomous Multi-Modal Agent',
+    id: 'marketing-ai-agentic',
+    category: 'Agentic AI & Bedrock',
+    title: 'Marketing AI for Agentic LLM Engineering',
     description:
-      'Engineered an enterprise autonomous AI agent featuring Tree-of-Thought planning, dynamic tool-use calling, and self-reflection loops for complex workflows.',
+      'Enterprise marketing conversational AI platform on AWS Bedrock featuring unified document RAG, SQL RAG (Text-to-SQL), and upstream telemetry integration.',
     fullDescription:
-      'OmniAgent X solves multi-step analytical and programmatic tasks by orchestrating specialized LLM sub-agents. It integrates dynamic tool routing, code execution sandboxing, and hierarchical memory retrieval to achieve state-of-the-art autonomy on the GAIA benchmark.',
-    architecture: `[User Request] ➔ [Intent Router] ➔ [Planner Sub-agent (Tree-of-Thought)]
-                      ↓
-       [Tool Registry & Python Sandbox] ⇄ [Vector Memory (Qdrant)]
-                      ↓
-         [Critic / Verifier Node] ➔ [Validated Synthesis]`,
+      'Developed a comprehensive Marketing AI platform featuring conversational AI and Pulse Insights to generate actionable business insights from database-driven data. Integrates RAG, SQL agents, upstream services, automated chart generation, and downloadable reports to enable natural-language enterprise data exploration.',
+    architecture: `[User Natural Language Query]
+                 ↓
+      [Amazon Bedrock Orchestrator] ⇄ [Model Context Protocol (MCP)]
+                 ↓
+  ┌──────────────────────────────┴──────────────────────────────┐
+  ↓                                                             ↓
+[Document RAG Pipeline]                             [SQL RAG (Text-to-SQL)]
+(Vector DB & Semantic Retrieval)                     (Dynamic Schema Mapping)
+  ↓                                                             ↓
+  └──────────────────────────────┬──────────────────────────────┘
+                                 ↓
+         [Agent2Agent (A2A) Synthesis & Pulse Insights]
+                                 ↓
+     [Streamed Conversational Response + Automated Charts]`,
     highlights: [
-      'Implemented Tree-of-Thought search achieving 84.6% GAIA benchmark success',
-      'Dynamic sandboxed Python code execution with safety AST verification',
-      'Async streaming execution reducing latency to first token by 45%',
-      'Integrated hybrid memory with semantic embeddings and session cache',
+      'Built core conversational chat flow on Amazon Bedrock supporting both document RAG & SQL RAG simultaneously',
+      'Engineered Text-to-SQL pipeline converting natural queries into validated relational queries over live databases',
+      'Applied Model Context Protocol (MCP) and Agent2Agent (A2A) protocol for modular multi-agent collaboration',
+      'Integrated upstream data collectors and Langfuse tracing with AWS CloudWatch monitoring',
     ],
-    codeSnippet: `class OmniAgent:
-    def __init__(self, model_id: str, memory_store: VectorStore):
-        self.router = IntentRouter(model=model_id)
-        self.planner = TreeOfThoughtPlanner(depth=4, beam_width=3)
-        self.tools = ToolRegistry()
+    codeSnippet: `from langgraph.graph import StateGraph, END
+from amazon_bedrock import BedrockRuntime
 
-    async def execute_task(self, query: str) -> AgentResult:
-        plan = await self.planner.generate_plan(query)
-        while not plan.is_complete():
-            action = plan.get_next_action()
-            observation = await self.tools.invoke(action)
-            plan.update_with_critique(observation)
-        return plan.synthesize()`,
+class MarketingAgentState(TypedDict):
+    query: str
+    intent: str
+    sql_query: Optional[str]
+    retrieved_docs: List[Document]
+    final_response: str
+
+async def route_query(state: MarketingAgentState):
+    intent = await classify_intent(state["query"])
+    if intent == "data_analytics":
+        return "sql_rag_agent"
+    return "document_rag_agent"`,
     metrics: [
-      { label: 'BENCHMARK GAIA', value: '84.6% Acc' },
-      { label: 'PLANNING SPEED', value: '420ms avg' },
+      { label: 'ARCHITECTURE', value: 'MCP & A2A' },
+      { label: 'PLATFORM', value: 'AWS Bedrock' },
     ],
-    tags: ['PyTorch', 'LangChain', 'LLaMA-3', 'FastAPI', 'Qdrant', 'Docker'],
-    github: 'https://github.com/ajtiwari1/omniagent-x',
+    tags: ['Amazon Bedrock', 'LangGraph', 'LangChain', 'SQL RAG', 'MCP', 'Temporal', 'Langfuse'],
+    github: 'https://github.com/ajtiwari1',
     demo: 'https://github.com/ajtiwari1',
-    status: 'v2.1 Production',
+    status: 'Production Live',
   },
   {
-    id: 'visionpulse-3d',
-    category: 'Computer Vision',
-    title: 'VisionPulse 3D: Multi-Camera Tracking Pipeline',
+    id: 'multimedia-rag-vllm',
+    category: 'Generative AI & RAG',
+    title: 'Multimedia RAG Assistant & Audio/Video Q&A',
     description:
-      'High-throughput real-time 3D object detection, tracking, and spatial velocity estimation using customized YOLOv10 and TensorRT acceleration.',
+      'High-throughput multimodal retrieval-augmented generation system combining Whisper transcription, image OCR, ChromaDB embeddings, and Llama 3.1 on vLLM.',
     fullDescription:
-      'A multi-camera computer vision infrastructure designed for autonomous robotics and smart city surveillance. Built with custom CUDA kernels and TensorRT optimization, achieving 110 FPS on dual 4K video feeds with sub-pixel spatial calibration.',
-    architecture: `[4K Dual Video Feed] ➔ [Hardware Video Decode (NVDEC)]
+      'Engineered an end-to-end multimedia generative AI pipeline capable of parsing audio, video, scanned imagery, and documents. Uses OpenAI Whisper for multi-lingual audio transcription, OCR for image text extraction, and stores normalized embeddings in ChromaDB for sub-second similarity search.',
+    architecture: `[Audio / Video / Image Feeds] ➔ [Whisper & Vision OCR]
                       ↓
-     [TensorRT YOLOv10 Backbone] ➔ [DeepSORT 3D Re-ID]
+  [Chunking & Dense Embedding Model] ➔ [ChromaDB Vector Store]
                       ↓
- [Kalman Filter Spatial Mapping] ➔ [ZeroMQ Stream output: 110 FPS]`,
+   [User Query] ➔ [Hybrid Semantic Retriever]
+                      ↓
+ [Llama 3.1-8B via vLLM PagedAttention] ➔ [Faithful Synthesis]
+                      ↓
+       [Ragas Evaluation: 98% Faithfulness, 92% Correctness]`,
     highlights: [
-      'Sub-10ms end-to-end latency per 4K camera frame',
-      'Custom TensorRT FP16 quantization reducing VRAM footprint by 58%',
-      'Robust cross-camera re-identification under extreme occlusions and lighting shifts',
-      'Seamless ROS2 integration for physical robotic actuation',
+      'Achieved 98% faithfulness and 92% answer correctness measured via Ragas evaluation framework',
+      'Integrated Whisper transcription and vision OCR for rich multimodal ingestion',
+      'Employed vLLM with PagedAttention serving Llama 3.1-8B with high concurrency',
+      'Packaged performant FastAPI backend deployed on Kubernetes using Docker containers',
     ],
-    codeSnippet: `// Custom TensorRT Inference Loop
-void VisionEngine::processStream(const cv::cuda::GpuMat& inputFrame) {
-    cudaStream_t stream;
-    cudaStreamCreate(&stream);
-    preprocessKernel<<<grid, block, 0, stream>>>(inputFrame.data, devBuffer_);
-    context_->enqueueV3(stream);
-    postprocessBoxes<<<grid, block, 0, stream>>>(devBuffer_, outDetections_);
-    cudaStreamSynchronize(stream);
-}`,
+    codeSnippet: `from vllm import LLM, SamplingParams
+from ragas import evaluate
+from ragas.metrics import faithfulness, answer_correctness
+
+# High-throughput vLLM serving pipeline
+llm = LLM(model="meta-llama/Llama-3.1-8B-Instruct", tensor_parallel_size=1)
+sampling_params = SamplingParams(temperature=0.2, max_tokens=512)
+
+async def generate_grounded_answer(query: str, retrieved_context: list[str]):
+    prompt = build_rag_prompt(query=query, context="\\n".join(retrieved_context))
+    outputs = llm.generate([prompt], sampling_params)
+    return outputs[0].outputs[0].text`,
     metrics: [
-      { label: 'FRAME RATE', value: '110 FPS @ 4K' },
-      { label: 'LATENCY', value: '8.4ms P99' },
+      { label: 'FAITHFULNESS', value: '98% Ragas' },
+      { label: 'ANSWER CORRECTNESS', value: '92% Score' },
     ],
-    tags: ['C++', 'CUDA', 'TensorRT', 'PyTorch', 'OpenCV', 'ROS2'],
-    github: 'https://github.com/ajtiwari1/visionpulse-3d',
+    tags: ['Llama 3.1', 'vLLM', 'LangChain', 'Ragas', 'FastAPI', 'Docker', 'Kubernetes'],
+    github: 'https://github.com/ajtiwari1',
     demo: 'https://github.com/ajtiwari1',
-    status: 'Deployed Edge',
+    status: 'Benchmarked SOTA',
   },
   {
-    id: 'synapserag-enterprise',
-    category: 'LLMs & Agents',
-    title: 'SynapseRAG: Production Hybrid Vector & Re-Ranker',
+    id: 'financial-ocr-qwen-vl',
+    category: 'Vision-Language & OCR',
+    title: 'Financial Document OCR & Entity Extraction',
     description:
-      'Enterprise-grade Retrieval-Augmented Generation system blending dense semantic embeddings with sparse BM25 and cross-encoder re-ranking.',
+      'End-to-end financial intelligence pipeline combining Qwen2.5-VL Vision-Language Model, docTR, and Table Transformers for multi-format document understanding.',
     fullDescription:
-      'Designed to ingest millions of unstructured technical documents and financial filings with zero hallucination guarantee. Features contextual chunking, dynamic query expansion with HyDE, and real-time citation attribution.',
-    architecture: `[User Query] ➔ [HyDE Expansion] ➔ [Hybrid Retrieval: Dense + BM25]
-                      ↓
-     [Cross-Encoder Re-ranker (Cohere / BGE)]
-                      ↓
- [Context Pruning & Citation Attribution] ➔ [vLLM Generator]`,
+      'Designed and deployed an intelligent document processing system at Audax Labs for complex invoices, balance sheets, and tax filings across PDFs, images, and skewed scans. Fuses Qwen2.5-VL zero-shot visual reasoning with classical regex and DBSCAN spatial text clustering for high-fidelity tabular extraction.',
+    architecture: `[Scanned PDF / Image / Invoice]
+                 ↓
+    [docTR OCR & Table Transformer] ➔ [DBSCAN Spatial Clustering]
+                 ↓
+     [Qwen2.5-VL Vision-Language Model Visual Reasoning]
+                 ↓
+   [Classical ML & Regex Entity Normalization]
+                 ↓
+ [Structured JSON Financial Schema Output API]`,
     highlights: [
-      'Retrieval MRR@10 improved from 0.62 to 0.89 using cross-encoder re-ranking',
-      'vLLM integration with PagedAttention delivering 3.8x higher concurrency',
-      'Sub-document citation attribution with 99.1% factual precision',
-      'Handles 50M+ document vector indexes with sub-50ms query time',
+      'Eliminated manual financial entry errors across complex multi-page invoices and scanned PDFs',
+      'Combined Qwen2.5-VL visual context comprehension with deterministic table transformers',
+      'DBSCAN spatial clustering to accurately preserve multi-column financial layouts',
+      'Containerized with FastAPI & Docker for high-throughput batch processing',
     ],
-    codeSnippet: `async def hybrid_retrieve(query: str, top_k: int = 5):
-    dense_vec = await embed_model.encode_async(query)
-    # Concurrent dense and BM25 search
-    dense_results, sparse_results = await asyncio.gather(
-        qdrant_client.search_async(vector=dense_vec, limit=30),
-        bm25_index.search_async(query=query, limit=30)
+    codeSnippet: `from transformers import Qwen2_5_VLForConditionalGeneration, AutoProcessor
+import torch
+
+model = Qwen2_5_VLForConditionalGeneration.from_pretrained(
+    "Qwen/Qwen2.5-VL-7B-Instruct", torch_dtype="auto", device_map="auto"
+)
+processor = AutoProcessor.from_pretrained("Qwen/Qwen2.5-VL-7B-Instruct")
+
+def extract_financial_entities(image_path: str):
+    prompt = "Extract all line items, tax breakdown, and total invoice amounts into valid JSON."
+    inputs = processor(text=[prompt], images=[image_path], return_tensors="pt")
+    output = model.generate(**inputs, max_new_tokens=1024)
+    return processor.batch_decode(output, skip_special_tokens=True)`,
+    metrics: [
+      { label: 'MODEL BACKBONE', value: 'Qwen2.5-VL' },
+      { label: 'EXTRACTION SPEED', value: 'Real-Time Batch' },
+    ],
+    tags: ['Qwen2.5-VL', 'docTR', 'Table Transformer', 'DBSCAN', 'FastAPI', 'Docker'],
+    github: 'https://github.com/ajtiwari1',
+    demo: 'https://github.com/ajtiwari1',
+    status: 'Audax Labs Prod',
+  },
+  {
+    id: 'stock-analysis-langgraph',
+    category: 'Agentic AI & Bedrock',
+    title: 'Autonomous Stock Analysis & Code Agent',
+    description:
+      'Multi-agent financial analytics system built on LangGraph and AutoGen featuring automated strategy code synthesis and self-healing execution.',
+    fullDescription:
+      'Engineered at WalkingTree Technology, this autonomous agent orchestrates financial market data analysis. It dynamically generates quantitative strategy code, executes the code in a sandbox, detects runtime errors, and self-corrects using AutoGen feedback loops to deliver data-backed stock suggestions.',
+    architecture: `[Market Prompt & Ticker] ➔ [LangGraph Supervisory Node]
+                 ↓
+ [Financial Data Fetcher] ⇄ [Technical Indicator Evaluator]
+                 ↓
+  [AutoGen Code Synthesizer] ➔ [Isolated Python Sandbox]
+                 ↓
+    {Runtime Error detected?} ➔ Yes ➔ [Self-Correction Loop]
+                 ↓ No
+   [Data-Driven Strategy Suggestions & Visual Charts]`,
+    highlights: [
+      'Architected LangGraph stateful workflow for complex financial analytics',
+      'Automated strategy-based Python code generation and execution in secure runtime',
+      'Self-correcting error resolution loop driven by AutoGen multi-agent dialogue',
+      'Synthesizes real-time candlestick patterns and quantitative indicators',
+    ],
+    codeSnippet: `from autogen import AssistantAgent, UserProxyAgent
+
+coder = AssistantAgent(
+    name="StrategyCoder",
+    system_message="Generate executable Python code using pandas & yfinance to backtest strategy."
+)
+executor = UserProxyAgent(
+    name="CodeExecutor",
+    code_execution_config={"work_dir": "sandbox", "use_docker": True}
+)
+
+def run_strategy_agent(stock_ticker: str):
+    executor.initiate_chat(
+        coder,
+        message=f"Compute 200-day moving average crossover for {stock_ticker} and plot returns."
+    )`,
+    metrics: [
+      { label: 'FRAMEWORK', value: 'LangGraph' },
+      { label: 'COORDINATION', value: 'AutoGen' },
+    ],
+    tags: ['LangGraph', 'AutoGen', 'Python', 'Financial ML', 'Multi-Agent', 'Docker'],
+    github: 'https://github.com/ajtiwari1',
+    demo: 'https://github.com/ajtiwari1',
+    status: 'WalkingTree Tech',
+  },
+  {
+    id: 'jetson-bus-safety',
+    category: 'Computer Vision & Edge',
+    title: 'Edge Computer Vision Smart Bus Safety System',
+    description:
+      'Real-time edge AI safety monitoring system deployed on NVIDIA Jetson Nano detecting standing students on moving buses and tracking passenger flow.',
+    fullDescription:
+      'Engineered an edge computer vision solution for school transportation safety at Audax Labs. Embedded on NVIDIA Jetson Nano hardware, the pipeline uses optimized deep learning models and OpenCV to detect whether students are standing while the bus is in motion, triggering immediate driver alerts and logging boarding/deboarding counts in real time.',
+    architecture: `[In-Bus Camera Video Stream]
+                 ↓
+ [Hardware Hardware Decode on NVIDIA Jetson Nano]
+                 ↓
+    [Optimized Deep Learning Detection Model]
+                 ↓
+  ┌──────────────────────────────┴──────────────────────────────┐
+  ↓                                                             ↓
+[Standing Passenger Detection]                [Boarding / Deboarding Counter]
+(Motion & Posture Classification)              (Centroid Line-Crossing Tracker)
+  ↓                                                             ↓
+[Trigger Real-Time Safety Alert]              [Telemetry Cloud Sync]`,
+    highlights: [
+      'Deployed directly on low-power NVIDIA Jetson Nano edge hardware',
+      'Real-time inference detecting standing passengers while vehicle motion sensors indicate movement',
+      'Line-crossing passenger tracking for boarding and deboarding counts',
+      'Robust performance under low-light and vibrating in-vehicle environments',
+    ],
+    codeSnippet: `import cv2
+
+class BusSafetyMonitor:
+    def __init__(self, jetson_engine_path: str):
+        self.net = cv2.dnn.readNetFromTensorflow(jetson_engine_path)
+        self.is_bus_moving = False
+
+    def process_frame(self, frame):
+        blob = cv2.dnn.blobFromImage(frame, 1/255.0, (300, 300), swapRB=True)
+        self.net.setInput(blob)
+        detections = self.net.forward()
+        standing_count = self.detect_standing_posture(detections)
+        if self.is_bus_moving and standing_count > 0:
+            self.trigger_driver_alert(standing_count)`,
+    metrics: [
+      { label: 'HARDWARE', value: 'Jetson Nano' },
+      { label: 'PROCESSING', value: 'Real-Time Edge' },
+    ],
+    tags: ['NVIDIA Jetson Nano', 'OpenCV', 'Deep Learning', 'Edge AI', 'Python'],
+    github: 'https://github.com/ajtiwari1',
+    demo: 'https://github.com/ajtiwari1',
+    status: 'Audax Labs Prod',
+  },
+  {
+    id: 'enterprise-chatbots-healthcare',
+    category: 'Generative AI & RAG',
+    title: 'Enterprise Customer Care & Patient Triage Chatbots',
+    description:
+      'Production conversational AI chatbots reducing electric bike customer care costs by 20% and clinical patient intake time by 30%.',
+    fullDescription:
+      'Spearheaded two flagship conversational AI deployments at Audax Labs. Built a domain-specific RAG support assistant for an electric bike manufacturer that automated 70%+ of tier-1 support queries. Also built a HIPAA-conscious patient-assessment chatbot using Azure OpenAI and Python, streamlining preliminary medical history intake.',
+    architecture: `[User Support / Patient Query]
+                 ↓
+  [Semantic Router & Safety Guardrails] ➔ [Azure OpenAI / GPT-4]
+                 ↓
+  [Domain Knowledge Retrieval (Vector DB)]
+                 ↓
+ [Actionable Resolution: 20% Cost Reduction / 30% Intake Time Saved]`,
+    highlights: [
+      '20% reduction in customer care operational costs for electric bike manufacturer',
+      '30% reduction in patient clinic intake time via Azure OpenAI conversational workflows',
+      'Strict safety guardrails and domain hallucination prevention',
+      'Smooth handoff to human agents when sentiment or triage thresholds exceeded',
+    ],
+    codeSnippet: `async def evaluate_patient_intake(conversation_history: list):
+    system_prompt = "You are a clinical intake assistant. Extract symptoms, allergies, and duration."
+    response = await azure_openai_client.chat.completions.create(
+        model="gpt-4",
+        messages=[{"role": "system", "content": system_prompt}, *conversation_history],
+        temperature=0.0
     )
-    combined = reciprocal_rank_fusion(dense_results, sparse_results)
-    return await reranker.score(query=query, candidates=combined[:top_k])`,
+    return parse_clinical_json(response.choices[0].message.content)`,
     metrics: [
-      { label: 'MRR@10 ACCURACY', value: '0.89 Score' },
-      { label: 'CONCURRENCY', value: '1,200 req/s' },
+      { label: 'SUPPORT COST CUT', value: '20% Reduction' },
+      { label: 'INTAKE TIME CUT', value: '30% Faster' },
     ],
-    tags: ['Python', 'vLLM', 'FastAPI', 'Qdrant', 'Hugging Face', 'LangChain'],
-    github: 'https://github.com/ajtiwari1/synapserag-enterprise',
+    tags: ['Azure OpenAI', 'RAG', 'Python', 'FastAPI', 'Customer AI', 'Healthcare AI'],
+    github: 'https://github.com/ajtiwari1',
     demo: 'https://github.com/ajtiwari1',
-    status: 'Enterprise Prod',
-  },
-  {
-    id: 'neuroscan-health',
-    category: 'Healthcare AI',
-    title: 'NeuroScan: Explainable Med-Vision AI',
-    description:
-      'Deep learning diagnostic assistant for CT and MRI neuro-imaging with integrated Grad-CAM heatmaps and uncertainty quantification.',
-    fullDescription:
-      'Developed a Vision Transformer architecture fine-tuned on multi-institutional neuro-imaging datasets. Provides clinicians with pixel-level diagnostic saliency maps, SHAP feature importance explanations, and Bayesian uncertainty bounds.',
-    architecture: `[3D DICOM Volume] ➔ [Volumetric Preprocessing & Normalization]
-                      ↓
- [Swin UNETR Vision Transformer] ➔ [Monte Carlo Dropout Uncertainty]
-                      ↓
- [Grad-CAM++ Saliency Maps] ➔ [Clinician Diagnostic Report API]`,
-    highlights: [
-      'Achieved 97.8% AUC on early-stage pathology detection',
-      'Integrated Monte Carlo Dropout for Bayesian epistemic uncertainty estimation',
-      'Compliant with HIPAA data isolation and DICOM format ingestion',
-      'Grad-CAM++ saliency overlays validated by certified radiologists',
-    ],
-    codeSnippet: `class DiagnosticViT(nn.Module):
-    def __init__(self, in_channels=1, num_classes=4):
-        super().__init__()
-        self.backbone = SwinUNETR(img_size=(96, 96, 96), in_channels=in_channels)
-        self.uncertainty_head = MCDropout(p=0.3)
-        self.classifier = nn.Linear(768, num_classes)
-
-    def forward_with_uncertainty(self, x, num_samples=25):
-        samples = torch.stack([self.forward(x) for _ in range(num_samples)])
-        mean_prediction = samples.mean(dim=0)
-        variance = samples.var(dim=0)
-        return mean_prediction, variance`,
-    metrics: [
-      { label: 'ROC-AUC', value: '97.8%' },
-      { label: 'SLICES / SEC', value: '340 vol/s' },
-    ],
-    tags: ['PyTorch Lightning', 'MONAI', 'Vision Transformers', 'SHAP', 'Docker'],
-    github: 'https://github.com/ajtiwari1/neuroscan-health',
-    demo: 'https://github.com/ajtiwari1',
-    status: 'Research Clinical',
-  },
-  {
-    id: 'pulseserve-mlops',
-    category: 'MLOps & Infra',
-    title: 'PulseServe: Distributed Model Mesh & Drift Engine',
-    description:
-      'Autonomous model serving control plane with automated Canary rollouts, real-time embedding drift detection, and GPU autoscaling.',
-    fullDescription:
-      'A cloud-native MLOps orchestration engine built for multi-cluster Kubernetes deployments. Continuously tracks statistical Wasserstein distance across incoming embeddings to detect data distribution drift before degradation occurs.',
-    architecture: `[Traffic Ingress] ➔ [Dynamic Canary Traffic Splitter (Istio)]
-                      ↓
-    [Ray Serve GPU Workers] ⇄ [Prometheus Metrics & Evidently AI]
-                      ↓
- [Automated Retraining Trigger] ➔ [MLflow Model Registry]`,
-    highlights: [
-      'Automated fallback to shadow models when drift p-value drops below 0.01',
-      'Kubernetes Ray Serve cluster with dynamic GPU scale-to-zero capability',
-      'Reduced cloud GPU infrastructure cost by 42% through smart batching',
-      'Sub-5ms telemetry overhead with Prometheus and Grafana dashboards',
-    ],
-    codeSnippet: `class DriftDetector:
-    def __init__(self, baseline_embeddings: np.ndarray, threshold: float = 0.05):
-        self.baseline = baseline_embeddings
-        self.threshold = threshold
-
-    def evaluate_batch(self, current_batch: np.ndarray) -> bool:
-        stat, p_val = ks_2samp(self.baseline.flatten(), current_batch.flatten())
-        if p_val < self.threshold:
-            logger.warn(f"Data drift detected! P-value: {p_val:.5f}")
-            self.trigger_canary_rollback()
-            return True
-        return False`,
-    metrics: [
-      { label: 'COST REDUCTION', value: '42% Lower GPU' },
-      { label: 'AVAILABILITY', value: '99.99% SLA' },
-    ],
-    tags: ['Kubernetes', 'Ray Serve', 'Docker', 'MLflow', 'Triton', 'AWS'],
-    github: 'https://github.com/ajtiwari1/pulseserve-mlops',
-    demo: 'https://github.com/ajtiwari1',
-    status: 'Infra Active',
-  },
-  {
-    id: 'quantizellm-engine',
-    category: 'LLMs & Agents',
-    title: 'QuantizeLLM: 4-Bit Edge Tensor Acceleration',
-    description:
-      'Custom activation-aware weight quantization (AWQ) kernel library running 70B parameter models on single consumer GPUs.',
-    fullDescription:
-      'Implements custom CUDA and Triton kernels for fused GEMM and dequantization. Preserves 99.2% perplexity compared to FP16 baselines while speeding up inference throughput by 3.2x on edge devices.',
-    architecture: `[FP16 Checkpoint] ➔ [Salient Weight Sensitivity Profiler]
-                      ↓
- [AWQ Matrix Transformation] ➔ [Fused FP4/INT4 Dequant Kernel]
-                      ↓
- [Direct VRAM Execution] ➔ [125 tok/s Edge Throughput]`,
-    highlights: [
-      'Fused CUDA kernel eliminates redundant global memory writebacks',
-      'Reduces model footprint from 140 GB to 35 GB with negligible loss',
-      'Triton-based cross-platform support across NVIDIA and Apple Silicon (Metal)',
-      'Adopted by 500+ open-source developers on Hugging Face',
-    ],
-    codeSnippet: `@triton.jit
-def fused_dequant_matmul_kernel(
-    a_ptr, b_ptr, c_ptr, scales_ptr,
-    M, N, K, stride_am, stride_ak, stride_bk, stride_bn, stride_cm, stride_cn,
-    BLOCK_M: tl.constexpr, BLOCK_N: tl.constexpr, BLOCK_K: tl.constexpr,
-):
-    pid = tl.program_id(0)
-    # Fused fast dequantization into register cache
-    ...`,
-    metrics: [
-      { label: 'COMPRESSION', value: '75% Size Cut' },
-      { label: 'SPEEDUP', value: '3.2x Higher' },
-    ],
-    tags: ['CUDA', 'Triton', 'PyTorch', 'C++', 'Hugging Face'],
-    github: 'https://github.com/ajtiwari1/quantizellm-engine',
-    demo: 'https://github.com/ajtiwari1',
-    status: 'Open Source',
+    status: 'Audax Labs Prod',
   },
 ];
 
-const categories = ['All Projects', 'LLMs & Agents', 'Computer Vision', 'MLOps & Infra', 'Healthcare AI'];
+const categories = [
+  'All Projects',
+  'Agentic AI & Bedrock',
+  'Generative AI & RAG',
+  'Vision-Language & OCR',
+  'Computer Vision & Edge',
+];
 
 export default function Projects() {
   const [activeCategory, setActiveCategory] = useState('All Projects');
@@ -258,7 +308,7 @@ export default function Projects() {
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
               <Code2 className="w-3.5 h-3.5" />
-              <span>PRODUCTION SYSTEMS &amp; RESEARCH</span>
+              <span>ACTUAL PRODUCTION DELIVERABLES</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
               Flagship{' '}
@@ -267,8 +317,8 @@ export default function Projects() {
               </span>
             </h2>
             <p className="text-slate-400 max-w-xl text-sm sm:text-base font-light">
-              High-impact solutions spanning Large Language Models, Multi-Modal Computer Vision, and
-              distributed low-latency inference pipelines.
+              Production systems designed and deployed across enterprise settings, spanning AWS Bedrock,
+              RAG, Vision-Language Models, and edge computer vision.
             </p>
           </div>
 

@@ -19,7 +19,7 @@ export default function Footer() {
             <div>
               <div className="font-mono font-bold text-sm text-white">AJAY TIWARI</div>
               <div className="text-[11px] font-mono text-slate-400">
-                AI / Machine Learning Engineer
+                Senior AI/ML &amp; Generative AI Engineer • Anthropic Claude Certified Architect
               </div>
             </div>
           </div>

@@ -1,54 +1,55 @@
 import React, { useState } from 'react';
 import { motion } from 'framer-motion';
-import { Cpu, Database, Server, Terminal, Wrench, Layers, CheckCircle2 } from 'lucide-react';
+import { Cpu, Database, Server, Terminal, Wrench, Layers, Award, CheckCircle2 } from 'lucide-react';
 
 const skillCategories = [
   {
     id: 'genai',
-    title: 'Generative AI & LLMs',
+    title: 'Generative AI & Agentic Systems',
     icon: Cpu,
     skills: [
-      { name: 'LLaMA-3 / Mistral / DeepSeek', level: 96, desc: 'Fine-tuning, LoRA/QLoRA & prompt engineering' },
-      { name: 'LangChain & LlamaIndex', level: 94, desc: 'Multi-agent orchestration & vector toolchains' },
-      { name: 'vLLM / TensorRT-LLM', level: 92, desc: 'High-throughput PagedAttention serving' },
-      { name: 'RAG Architectures', level: 95, desc: 'Hybrid dense/sparse retrieval with re-ranking' },
-      { name: 'Autonomous Tool Use / CoT', level: 90, desc: 'Reasoning loops & execution sandboxes' },
+      { name: 'RAG & SQL RAG (Text-to-SQL)', level: 98, desc: 'Context retrieval, grounding, enterprise database natural querying' },
+      { name: 'Model Context Protocol (MCP) & A2A', level: 95, desc: 'External tools integration & multi-agent collaborative workflows' },
+      { name: 'Amazon Bedrock & Gemini', level: 96, desc: 'Foundation model orchestration, conversational chat applications' },
+      { name: 'LangGraph, AutoGen & LangChain', level: 96, desc: 'Stateful agent graphs, autonomous strategy synthesis, self-correction' },
+      { name: 'Vector Databases & LangSmith', level: 92, desc: 'ChromaDB, semantic search, evaluation tracing, Ragas metrics' },
+      { name: 'LLM Fine-tuning (LoRA / QLoRA)', level: 90, desc: 'Parameter-efficient fine-tuning & domain adaptation' },
     ],
   },
   {
     id: 'deep-learning',
-    title: 'Deep Learning & Vision',
+    title: 'Machine Learning & Deep Learning',
     icon: Layers,
     skills: [
-      { name: 'PyTorch / PyTorch Lightning', level: 98, desc: 'Custom autograd, training loops, DDP' },
-      { name: 'Computer Vision & YOLOv10', level: 92, desc: 'Object detection, 3D tracking, segmentation' },
-      { name: 'Vision Transformers (ViT)', level: 88, desc: 'Attention maps, medical imaging, patch encoders' },
-      { name: 'Hugging Face Ecosystem', level: 96, desc: 'Transformers, Datasets, PEFT, Accelerate' },
-      { name: 'TensorFlow / Keras', level: 85, desc: 'Graph execution & legacy model migration' },
+      { name: 'Transformers & LLM Architectures', level: 96, desc: 'Self-attention, tokenization, vision-language backbones' },
+      { name: 'Neural Networks (ANN, CNN, RNN)', level: 95, desc: 'Image classification, sequence modeling, pattern recognition' },
+      { name: 'Classical ML & Ensembles', level: 94, desc: 'XGBoost, Random Forest, Decision Trees, SVM, Logistic Regression' },
+      { name: 'Vision-Language Models (Qwen2.5-VL)', level: 92, desc: 'Document understanding, visual OCR reasoning, multimodal extraction' },
+      { name: 'Computer Vision & Tracking', level: 90, desc: 'Object detection, OpenCV, real-time video stream analytics' },
     ],
   },
   {
-    id: 'mlops',
-    title: 'MLOps & Distributed Infra',
-    icon: Server,
-    skills: [
-      { name: 'Docker & Kubernetes', level: 92, desc: 'Containerization, KubeFlow, GPU scheduling' },
-      { name: 'Ray / Ray Serve', level: 90, desc: 'Distributed training & model serving clusters' },
-      { name: 'Triton Inference Server', level: 89, desc: 'Multi-model concurrent dynamic batching' },
-      { name: 'MLflow & Weights & Biases', level: 94, desc: 'Experiment tracking, model registry, CI/CD' },
-      { name: 'AWS SageMaker & Cloud GPUs', level: 88, desc: 'Distributed clusters, spot orchestration' },
-    ],
-  },
-  {
-    id: 'languages-data',
-    title: 'Languages & Core Systems',
+    id: 'frameworks',
+    title: 'Frameworks & Libraries',
     icon: Terminal,
     skills: [
-      { name: 'Python (Expert)', level: 98, desc: 'AsyncIO, NumPy, C-extensions, Cython' },
-      { name: 'C++ / CUDA', level: 84, desc: 'Custom GPU kernels, low-level optimization' },
-      { name: 'Vector DBs (Qdrant, FAISS)', level: 94, desc: 'HNSW indexing, distance metrics, sharding' },
-      { name: 'SQL & Polars / Pandas', level: 92, desc: 'High-speed analytical feature engineering' },
-      { name: 'Git & Linux Internals', level: 95, desc: 'Bash scripting, kernel profiling, systemd' },
+      { name: 'PyTorch & TensorFlow', level: 94, desc: 'Deep learning model training, optimization, inference graph building' },
+      { name: 'FastAPI (Python)', level: 98, desc: 'High-throughput async backend microservices for GenAI serving' },
+      { name: 'OpenCV & docTR', level: 92, desc: 'Computer vision, table parsing, financial document OCR pipelines' },
+      { name: 'NumPy, Pandas & Scikit-learn', level: 96, desc: 'High-performance data manipulation, feature extraction, tabular ML' },
+      { name: 'Matplotlib & Seaborn', level: 90, desc: 'Analytical data visualization, model metric diagnostics' },
+    ],
+  },
+  {
+    id: 'cloud-deploy',
+    title: 'Cloud, Deployment & Languages',
+    icon: Server,
+    skills: [
+      { name: 'AWS (Bedrock, CloudWatch)', level: 95, desc: 'Enterprise GenAI services, logging, telemetry and model monitoring' },
+      { name: 'Docker & Kubernetes', level: 92, desc: 'Containerization, scalable cluster orchestration, resilient deployments' },
+      { name: 'Programming: Python, SQL, C', level: 98, desc: 'Idiomatic Python development, complex relational SQL, systems C' },
+      { name: 'NVIDIA Jetson Nano Edge AI', level: 88, desc: 'On-device edge inference, camera pipeline integration, motion alerts' },
+      { name: 'Git & Linux Development', level: 95, desc: 'CI/CD workflows, terminal automation, bash scripting' },
     ],
   },
 ];
@@ -69,17 +70,17 @@ export default function Skills() {
           <div className="space-y-3">
             <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-mono bg-cyan-500/10 text-cyan-400 border border-cyan-500/20">
               <Wrench className="w-3.5 h-3.5" />
-              <span>CORE COMPETENCIES</span>
+              <span>CORE TECHNICAL ARSENAL</span>
             </div>
             <h2 className="text-3xl sm:text-4xl md:text-5xl font-extrabold text-white tracking-tight">
               Technical{' '}
               <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400 bg-clip-text text-transparent">
-                Expertise &amp; Arsenal
+                Skills &amp; Expertise
               </span>
             </h2>
             <p className="text-slate-400 max-w-xl text-sm sm:text-base font-light">
-              From low-level CUDA acceleration and mathematical loss formulations to cloud-native
-              distributed deployment clusters.
+              Full-spectrum technical proficiencies across Generative AI architectures, Agentic protocols,
+              Deep Learning frameworks, and scalable cloud deployments.
             </p>
           </div>
 
@@ -109,6 +110,34 @@ export default function Skills() {
               </button>
             ))}
           </div>
+        </div>
+
+        {/* Featured Credential Banner */}
+        <div className="mb-10 p-5 rounded-2xl glass-panel-glow border border-purple-500/30 flex flex-col sm:flex-row items-center justify-between gap-4">
+          <div className="flex items-center gap-4">
+            <div className="w-12 h-12 rounded-xl bg-purple-500/20 border border-purple-400/40 flex items-center justify-center text-purple-300 shrink-0">
+              <Award className="w-6 h-6 animate-pulse" />
+            </div>
+            <div>
+              <div className="inline-flex items-center gap-1.5 px-2.5 py-0.5 rounded-full text-[10px] font-mono bg-purple-500/20 text-purple-300 border border-purple-400/30 mb-1">
+                VALIDATED OFFICIAL CREDENTIAL
+              </div>
+              <h3 className="text-base font-bold text-white">
+                Claude Certified Architect – Professional
+              </h3>
+              <p className="text-xs text-slate-300 font-light">
+                Issued by Anthropic (October 2026 – October 2027) • Validated expertise in designing &amp; leading enterprise-scale Claude deployments, governance &amp; responsible architectures.
+              </p>
+            </div>
+          </div>
+          <a
+            href="https://www.credly.com/badges/5bf21504-3fe0-453e-b86d-23c98dc086f3"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="px-4 py-2 rounded-xl bg-gradient-to-r from-purple-600 to-cyan-500 text-white font-mono text-xs font-semibold hover:shadow-neon-purple hover:scale-[1.02] transition-all shrink-0"
+          >
+            Verify Credly Badge ↗
+          </a>
         </div>
 
         {/* Skills Grid */}

@@ -11,23 +11,24 @@ import {
   Play,
   RotateCw,
   CheckCircle2,
+  Award,
 } from 'lucide-react';
 
 const specialties = [
-  'Large Language Models & Agentic Workflows',
-  'Real-Time Multi-Modal Computer Vision',
-  'Distributed MLOps & Low-Latency Serving',
-  'Retrieval-Augmented Generation (RAG)',
-  'Transformer Architecture Optimization',
+  'Agentic AI & Model Context Protocol (MCP)',
+  'RAG & SQL RAG (Text-to-SQL) Systems',
+  'Amazon Bedrock & Claude Enterprise Deployments',
+  'Multi-Agent Workflows (LangGraph & AutoGen)',
+  'Vision-Language Models (Qwen2.5-VL) & Edge AI',
 ];
 
 const simulatedTokens = [
-  'Initializing weights [BF16]...',
-  'Compiling FlashAttention-3 kernel...',
-  'Synthesizing multi-modal context vectors...',
-  'Optimal routing identified via MoE gating (3/8 experts active).',
-  'Convergence reached. Output loss: 0.0412.',
-  'Done. Ready for real-time inference (P99: 11.2ms).',
+  'Initializing AWS Bedrock client [Claude-3.5-Sonnet]...',
+  'Connecting MCP tools & Agent2Agent (A2A) protocol...',
+  'Parsing user query into schema-aware SQL RAG plan...',
+  'Executing retrieved context grounding with 98% faithfulness.',
+  'Generating conversational Pulse Insights and analytics charts.',
+  'Transmission ready. Sub-second streaming active.',
 ];
 
 export default function Hero() {
@@ -47,7 +48,7 @@ export default function Hero() {
   const runSimulatedInference = () => {
     if (inferenceRunning) return;
     setInferenceRunning(true);
-    setInferenceOutput(['[SYS] Allocating CUDA streams...']);
+    setInferenceOutput(['[BEDROCK] Initiating Claude Agentic Chain...']);
     setActiveStep(0);
 
     let idx = 0;
@@ -73,20 +74,30 @@ export default function Hero() {
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-12 items-center">
           {/* Left Column: Headline and Bio */}
           <div className="lg:col-span-7 space-y-6">
-            {/* Status Pill */}
+            {/* Status Pills */}
             <motion.div
               initial={{ opacity: 0, y: 15 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ duration: 0.5 }}
-              className="inline-flex items-center gap-2.5 px-3.5 py-1.5 rounded-full glass-panel border border-cyan-500/30 text-xs font-mono text-cyan-300"
+              className="flex flex-wrap items-center gap-2.5"
             >
-              <span className="relative flex h-2 w-2">
-                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
-                <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
-              </span>
-              <span>NEURAL CORE OPERATIONAL</span>
-              <span className="text-white/30">•</span>
-              <span className="text-slate-400">Available for Senior AI/ML Roles</span>
+              <div className="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full glass-panel border border-cyan-500/30 text-xs font-mono text-cyan-300">
+                <span className="relative flex h-2 w-2">
+                  <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-cyan-400 opacity-75"></span>
+                  <span className="relative inline-flex rounded-full h-2 w-2 bg-cyan-400"></span>
+                </span>
+                <span>SENIOR AI/ML &amp; GENERATIVE AI ENGINEER</span>
+              </div>
+
+              <a
+                href="https://www.credly.com/badges/5bf21504-3fe0-453e-b86d-23c98dc086f3"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-1.5 px-3 py-1.5 rounded-full glass-panel border border-purple-500/40 text-xs font-mono text-purple-300 hover:border-purple-400 transition-colors"
+              >
+                <Award className="w-3.5 h-3.5 text-purple-400" />
+                <span>Anthropic Claude Certified Architect</span>
+              </a>
             </motion.div>
 
             {/* Main Headline */}
@@ -99,9 +110,9 @@ export default function Hero() {
               <h1 className="text-4xl sm:text-5xl md:text-6xl font-extrabold tracking-tight text-white leading-[1.12]">
                 Architecting{' '}
                 <span className="bg-gradient-to-r from-cyan-400 via-sky-300 to-purple-400 bg-clip-text text-transparent text-glow-cyan">
-                  Autonomous AI
+                  Enterprise Agentic AI
                 </span>{' '}
-                & Scalable Deep Learning Systems
+                &amp; Production RAG Systems
               </h1>
             </motion.div>
 
@@ -113,7 +124,7 @@ export default function Hero() {
               className="flex items-center gap-2 text-slate-300 font-mono text-sm sm:text-base h-8"
             >
               <span className="text-cyan-400 font-bold">&gt;</span>
-              <span className="text-slate-400">Specializing in:</span>
+              <span className="text-slate-400">Core Focus:</span>
               <span className="text-cyan-300 font-semibold border-b border-cyan-400/50 pb-0.5">
                 {specialties[specialtyIndex]}
               </span>
@@ -126,9 +137,10 @@ export default function Hero() {
               transition={{ duration: 0.6, delay: 0.3 }}
               className="text-base sm:text-lg text-slate-300/90 leading-relaxed max-w-2xl font-light"
             >
-              Hi, I’m <strong className="text-white font-medium">Ajay Tiwari</strong>. I build high-performance
-              machine learning systems from foundational model architectures to production serving pipelines.
-              Bridging the gap between cutting-edge AI research and low-latency, scalable real-world deployments.
+              Hi, I’m <strong className="text-white font-medium">Ajay Tiwari</strong>. With{' '}
+              <strong className="text-cyan-300 font-medium">7 years of production AI experience</strong>,
+              I design and deploy enterprise-grade LLM applications, agentic workflows (MCP, A2A, LangGraph, AutoGen),
+              and high-fidelity SQL &amp; document RAG systems on AWS Bedrock.
             </motion.p>
 
             {/* CTA Buttons */}
@@ -139,26 +151,26 @@ export default function Hero() {
               className="flex flex-wrap items-center gap-4 pt-2"
             >
               <a
-                href="#projects"
+                href="#experience"
                 className="group relative inline-flex items-center gap-2 px-6 py-3.5 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-500 to-purple-600 text-white font-mono text-sm font-semibold shadow-neon-cyan hover:shadow-[0_0_35px_rgba(0,242,254,0.6)] hover:scale-[1.02] active:scale-[0.98] transition-all"
               >
-                <span>Explore Projects</span>
+                <span>View Work Experience</span>
                 <ArrowRight className="w-4 h-4 group-hover:translate-x-1 transition-transform" />
               </a>
 
               <a
-                href="#ailab"
+                href="#projects"
                 className="inline-flex items-center gap-2 px-6 py-3.5 rounded-xl glass-panel border border-cyan-500/30 text-cyan-300 font-mono text-sm hover:border-cyan-400 hover:bg-cyan-500/10 hover:scale-[1.02] transition-all"
               >
-                <Cpu className="w-4 h-4 text-cyan-400 animate-spin-slow" />
-                <span>Launch AI Lab</span>
+                <Cpu className="w-4 h-4 text-cyan-400" />
+                <span>Explore Projects</span>
               </a>
 
               <a
                 href="#contact"
                 className="inline-flex items-center gap-2 px-5 py-3.5 rounded-xl glass-panel border border-white/10 text-slate-300 font-mono text-sm hover:text-white hover:border-white/25 transition-all"
               >
-                <span>Get in Touch</span>
+                <span>Connect</span>
               </a>
             </motion.div>
           </div>
@@ -180,7 +192,7 @@ export default function Hero() {
                     <span className="w-3 h-3 rounded-full bg-emerald-500/80 inline-block" />
                     <span className="ml-2 font-mono text-xs text-slate-400 flex items-center gap-1.5">
                       <Terminal className="w-3.5 h-3.5 text-cyan-400" />
-                      inference_engine_v4.py
+                      bedrock_agent_mcp.py
                     </span>
                   </div>
                   <button
@@ -193,23 +205,23 @@ export default function Hero() {
                     ) : (
                       <Play className="w-3 h-3 text-cyan-300" />
                     )}
-                    <span>{inferenceRunning ? 'Processing' : 'Run Test'}</span>
+                    <span>{inferenceRunning ? 'Processing' : 'Simulate Chain'}</span>
                   </button>
                 </div>
 
                 {/* Telemetry Grid */}
                 <div className="grid grid-cols-3 gap-2 my-4">
                   <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
-                    <div className="text-[10px] font-mono text-slate-400">P99 LATENCY</div>
-                    <div className="text-sm font-mono font-bold text-cyan-400">11.4 ms</div>
+                    <div className="text-[10px] font-mono text-slate-400">FAITHFULNESS</div>
+                    <div className="text-sm font-mono font-bold text-cyan-400">98% Ragas</div>
                   </div>
                   <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
-                    <div className="text-[10px] font-mono text-slate-400">VRAM ALLOC</div>
-                    <div className="text-sm font-mono font-bold text-purple-400">14.2 / 24 GB</div>
+                    <div className="text-[10px] font-mono text-slate-400">ORCHESTRATION</div>
+                    <div className="text-sm font-mono font-bold text-purple-400">MCP + A2A</div>
                   </div>
                   <div className="p-2.5 rounded-lg bg-white/[0.03] border border-white/5">
-                    <div className="text-[10px] font-mono text-slate-400">THROUGHPUT</div>
-                    <div className="text-sm font-mono font-bold text-emerald-400">184 tok/s</div>
+                    <div className="text-[10px] font-mono text-slate-400">INFRASTRUCTURE</div>
+                    <div className="text-sm font-mono font-bold text-emerald-400">AWS Bedrock</div>
                   </div>
                 </div>
 
@@ -231,7 +243,7 @@ export default function Hero() {
                   {inferenceRunning && (
                     <div className="flex items-center gap-2 text-cyan-400 animate-pulse text-[11px] pt-1">
                       <span className="inline-block w-2 h-3.5 bg-cyan-400" />
-                      <span>Streaming tokens...</span>
+                      <span>Coordinating multi-agent context...</span>
                     </div>
                   )}
                 </div>
@@ -239,9 +251,9 @@ export default function Hero() {
                 {/* Architecture pipeline footer */}
                 <div className="mt-4 pt-3 border-t border-white/10 flex items-center justify-between text-[11px] font-mono text-slate-400">
                   <span className="flex items-center gap-1 text-slate-300">
-                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Model: LLaMA-3-8B-Instruct (AWQ)
+                    <CheckCircle2 className="w-3.5 h-3.5 text-emerald-400" /> Anthropic Claude Architect
                   </span>
-                  <span className="text-cyan-400 font-semibold">Triton / CUDA 12.4</span>
+                  <span className="text-cyan-400 font-semibold">FastAPI • Docker • K8s</span>
                 </div>
               </div>
             </div>
@@ -256,20 +268,20 @@ export default function Hero() {
           className="mt-16 pt-8 border-t border-white/10 grid grid-cols-2 sm:grid-cols-4 gap-6"
         >
           <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-extrabold font-mono text-cyan-400">15+</div>
-            <div className="text-xs sm:text-sm text-slate-400">Production AI Models Deployed</div>
+            <div className="text-3xl sm:text-4xl font-extrabold font-mono text-cyan-400">7+ Yrs</div>
+            <div className="text-xs sm:text-sm text-slate-400">AI/ML &amp; Generative AI Experience</div>
           </div>
           <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-extrabold font-mono text-purple-400">99.4%</div>
-            <div className="text-xs sm:text-sm text-slate-400">Peak Top-1 Accuracy Achieved</div>
+            <div className="text-3xl sm:text-4xl font-extrabold font-mono text-purple-400">98%</div>
+            <div className="text-xs sm:text-sm text-slate-400">Ragas Benchmark Faithfulness</div>
           </div>
           <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-extrabold font-mono text-emerald-400">10M+</div>
-            <div className="text-xs sm:text-sm text-slate-400">Daily Inferences Handled</div>
+            <div className="text-3xl sm:text-4xl font-extrabold font-mono text-emerald-400">20-30%</div>
+            <div className="text-xs sm:text-sm text-slate-400">Operating Cost &amp; Intake Time Cut</div>
           </div>
           <div className="space-y-1">
-            <div className="text-3xl sm:text-4xl font-extrabold font-mono text-sky-400">&lt;15ms</div>
-            <div className="text-xs sm:text-sm text-slate-400">Sub-20ms P99 Real-Time Latency</div>
+            <div className="text-3xl sm:text-4xl font-extrabold font-mono text-sky-400">Accenture</div>
+            <div className="text-xs sm:text-sm text-slate-400">Senior AI/ML &amp; GenAI Engineer</div>
           </div>
         </motion.div>
       </div>
