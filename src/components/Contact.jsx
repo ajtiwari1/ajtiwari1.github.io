@@ -1,6 +1,7 @@
-import React, { useState } from 'react';
+import React, { useState, useRef } from 'react';
 import { motion } from 'framer-motion';
 import confetti from 'canvas-confetti';
+import emailjs from '@emailjs/browser';
 import {
   Mail,
   Copy,
@@ -13,14 +14,24 @@ import {
   ExternalLink,
   GraduationCap,
   Award,
+  AlertCircle,
+  Loader2,
 } from 'lucide-react';
 import { Github, Linkedin } from './Icons.jsx';
 
+// ── EmailJS credentials ────────────────────────────────────────────────────
+// Replace these three values with your own from https://www.emailjs.com
+const EMAILJS_SERVICE_ID  = import.meta.env.VITE_EMAILJS_SERVICE_ID  || 'YOUR_SERVICE_ID';
+const EMAILJS_TEMPLATE_ID = import.meta.env.VITE_EMAILJS_TEMPLATE_ID || 'YOUR_TEMPLATE_ID';
+const EMAILJS_PUBLIC_KEY  = import.meta.env.VITE_EMAILJS_PUBLIC_KEY  || 'YOUR_PUBLIC_KEY';
+// ──────────────────────────────────────────────────────────────────────────
+
 export default function Contact() {
+  const formRef = useRef(null);
   const [copiedEmail, setCopiedEmail] = useState(false);
   const [formState, setFormState] = useState({ name: '', email: '', message: '' });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSent, setIsSent] = useState(false);
+  const [status, setStatus] = useState('idle'); // 'idle' | 'sending' | 'sent' | 'error'
+  const [errorMsg, setErrorMsg] = useState('');
 
   const myEmail = 'tiwariajay12351@gmail.com';
 
@@ -30,16 +41,30 @@ export default function Contact() {
     setTimeout(() => setCopiedEmail(false), 2500);
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
     if (!formState.name || !formState.email || !formState.message) return;
 
-    setIsSubmitting(true);
-    setTimeout(() => {
-      setIsSubmitting(false);
-      setIsSent(true);
+    setStatus('sending');
+    setErrorMsg('');
 
-      // Trigger celebratory cyber confetti
+    try {
+      await emailjs.send(
+        EMAILJS_SERVICE_ID,
+        EMAILJS_TEMPLATE_ID,
+        {
+          from_name:    formState.name,
+          from_email:   formState.email,
+          message:      formState.message,
+          to_email:     myEmail,
+          reply_to:     formState.email,
+        },
+        EMAILJS_PUBLIC_KEY
+      );
+
+      setStatus('sent');
+      setFormState({ name: '', email: '', message: '' });
+
       confetti({
         particleCount: 90,
         spread: 70,
@@ -47,9 +72,16 @@ export default function Contact() {
         colors: ['#00f2fe', '#8b5cf6', '#38bdf8', '#10b981'],
       });
 
-      setFormState({ name: '', email: '', message: '' });
-      setTimeout(() => setIsSent(false), 5000);
-    }, 1200);
+      setTimeout(() => setStatus('idle'), 6000);
+    } catch (err) {
+      console.error('EmailJS error:', err);
+      setStatus('error');
+      setErrorMsg(
+        err?.text ||
+        'Failed to send message. Please email me directly at tiwariajay12351@gmail.com'
+      );
+      setTimeout(() => setStatus('idle'), 8000);
+    }
   };
 
   return (
@@ -68,7 +100,8 @@ export default function Contact() {
             </span>
           </h2>
           <p className="text-slate-400 text-sm sm:text-base font-light">
-            Looking to collaborate on cutting-edge Agentic AI, enterprise RAG architectures, or senior engineering leadership roles? Reach out directly.
+            Looking to collaborate on cutting-edge Agentic AI, enterprise RAG architectures, or senior
+            engineering leadership roles? Reach out directly.
           </p>
         </div>
 
@@ -167,7 +200,7 @@ export default function Contact() {
             </div>
           </div>
 
-          {/* Right Column: Interactive Contact Form */}
+          {/* Right Column: Live Contact Form powered by EmailJS */}
           <div className="lg:col-span-7">
             <div className="p-6 sm:p-8 rounded-2xl glass-panel-glow border border-cyan-500/30 shadow-2xl space-y-6">
               <h3 className="text-lg font-bold text-white flex items-center gap-2">
@@ -175,12 +208,13 @@ export default function Contact() {
                 <span>Send a Direct Message</span>
               </h3>
 
-              <form onSubmit={handleSubmit} className="space-y-4">
+              <form ref={formRef} onSubmit={handleSubmit} className="space-y-4">
                 <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
                   <div className="space-y-1.5">
                     <label className="text-xs font-mono text-slate-300">YOUR NAME</label>
                     <input
                       type="text"
+                      name="from_name"
                       required
                       placeholder="e.g. Dario Amodei"
                       value={formState.name}
@@ -190,9 +224,10 @@ export default function Contact() {
                   </div>
 
                   <div className="space-y-1.5">
-                    <label className="text-xs font-mono text-slate-300">EMAIL ADDRESS</label>
+                    <label className="text-xs font-mono text-slate-300">YOUR EMAIL</label>
                     <input
                       type="email"
+                      name="from_email"
                       required
                       placeholder="e.g. dario@anthropic.com"
                       value={formState.email}
@@ -205,6 +240,7 @@ export default function Contact() {
                 <div className="space-y-1.5">
                   <label className="text-xs font-mono text-slate-300">MESSAGE / OPPORTUNITY DETAILS</label>
                   <textarea
+                    name="message"
                     required
                     rows={5}
                     placeholder="Tell me about your team, challenge, or project..."
@@ -214,25 +250,52 @@ export default function Contact() {
                   />
                 </div>
 
-                <div className="pt-2 flex items-center justify-between">
-                  {isSent ? (
-                    <div className="flex items-center gap-2 text-emerald-400 font-mono text-xs">
-                      <Check className="w-4 h-4" />
-                      <span>Transmission delivered successfully!</span>
-                    </div>
-                  ) : (
+                {/* Status messages */}
+                <div className="min-h-[28px]">
+                  {status === 'sent' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-center gap-2 text-emerald-400 font-mono text-xs"
+                    >
+                      <Check className="w-4 h-4 shrink-0" />
+                      <span>Message delivered to {myEmail}! I'll reply soon.</span>
+                    </motion.div>
+                  )}
+                  {status === 'error' && (
+                    <motion.div
+                      initial={{ opacity: 0, y: 4 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      className="flex items-start gap-2 text-red-400 font-mono text-xs"
+                    >
+                      <AlertCircle className="w-4 h-4 shrink-0 mt-0.5" />
+                      <span>{errorMsg}</span>
+                    </motion.div>
+                  )}
+                  {status === 'idle' && (
                     <span className="text-[11px] font-mono text-slate-400">
-                      Encrypted dispatch direct to tiwariajay12351@gmail.com
+                      Sends directly to {myEmail} via EmailJS
                     </span>
                   )}
+                </div>
 
+                <div className="flex justify-end pt-1">
                   <button
                     type="submit"
-                    disabled={isSubmitting}
-                    className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-500 to-purple-600 text-white font-mono text-xs font-semibold hover:shadow-neon-cyan hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-50"
+                    disabled={status === 'sending'}
+                    className="flex items-center gap-2 px-6 py-3 rounded-xl bg-gradient-to-r from-cyan-500 via-sky-500 to-purple-600 text-white font-mono text-xs font-semibold hover:shadow-neon-cyan hover:scale-[1.02] active:scale-[0.98] transition-all disabled:opacity-60 disabled:cursor-not-allowed disabled:scale-100"
                   >
-                    <Send className="w-3.5 h-3.5" />
-                    <span>{isSubmitting ? 'Transmitting...' : 'Dispatch Message'}</span>
+                    {status === 'sending' ? (
+                      <>
+                        <Loader2 className="w-3.5 h-3.5 animate-spin" />
+                        <span>Transmitting...</span>
+                      </>
+                    ) : (
+                      <>
+                        <Send className="w-3.5 h-3.5" />
+                        <span>Dispatch Message</span>
+                      </>
+                    )}
                   </button>
                 </div>
               </form>

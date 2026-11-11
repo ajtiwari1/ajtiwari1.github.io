@@ -290,7 +290,7 @@ export default function Hero({ onOpenResume }) {
           </div>
           <div className="space-y-1">
             <div className="text-3xl sm:text-4xl font-extrabold font-mono text-sky-400">Accenture</div>
-            <div className="text-xs sm:text-sm text-slate-400">Senior AI/ML &amp; GenAI Engineer</div>
+            <div className="text-xs sm:text-sm text-slate-400">Lead AI/ML &amp; Generative AI Engineer</div>
           </div>
         </motion.div>
       </div>

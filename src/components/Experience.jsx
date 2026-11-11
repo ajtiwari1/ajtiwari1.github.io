@@ -4,7 +4,7 @@ import { Briefcase, Calendar, MapPin, CheckCircle2, Building2 } from 'lucide-rea
 
 const experiences = [
   {
-    role: 'Senior AI/ML & Generative AI Engineer',
+    role: 'Lead AI/ML & Generative AI Engineer',
     company: 'Accenture',
     period: 'February 2026 – Present',
     location: 'Bengaluru, India',

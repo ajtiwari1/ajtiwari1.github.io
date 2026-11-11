@@ -215,7 +215,7 @@ export default function ResumeModal({ isOpen, onClose }) {
                   <span className="font-bold text-white text-sm">Accenture</span>
                   <span className="text-cyan-400 font-semibold">February 2026 – Present</span>
                 </div>
-                <div className="text-xs text-purple-300 font-mono">Senior AI/ML &amp; Generative AI Engineer</div>
+                <div className="text-xs text-purple-300 font-mono">Lead AI/ML &amp; Generative AI Engineer</div>
                 <ul className="list-disc list-inside space-y-1 text-xs text-slate-300 font-light pt-1">
                   <li>Designed and built the conversational layer of a GenAI chat application on AWS, using Amazon Bedrock foundation models to deliver context-aware, natural-language answers.</li>
                   <li>Implemented RAG pipelines in the chat flow to retrieve relevant context and ground LLM responses, improving answer relevance and reducing hallucinations.</li>
